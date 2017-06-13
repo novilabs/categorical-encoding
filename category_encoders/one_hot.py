@@ -192,7 +192,7 @@ class OneHotEncoder(BaseEstimator, TransformerMixin):
 
         bin_cols = []
         for col in cols:
-            col_tuples = [class_map['mapping'] for class_map in self.ordinal_encoder.mapping if class_map['col'] == col][0]
+            col_tuples = [class_map['mapping'] for class_map in self.ordinal_encoder._found_mapping if class_map['col'] == col][0]
             fit_classes = [col_val[1] for col_val in col_tuples]
             if self.handle_unknown == 'impute':
                 fit_classes.append(-1)
