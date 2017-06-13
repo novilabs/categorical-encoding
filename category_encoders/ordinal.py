@@ -85,6 +85,7 @@ class OrdinalEncoder(BaseEstimator, TransformerMixin):
         self.verbose = verbose
         self.cols = cols
         self.mapping = mapping
+        self._found_mapping = None
         self.impute_missing = impute_missing
         self.handle_unknown = handle_unknown
         self._dim = None
@@ -125,7 +126,7 @@ class OrdinalEncoder(BaseEstimator, TransformerMixin):
             impute_missing=self.impute_missing,
             handle_unknown=self.handle_unknown
         )
-        self.mapping = categories
+        self._found_mapping = categories
 
         # drop all output columns with 0 variance.
         if self.drop_invariant:
@@ -169,7 +170,7 @@ class OrdinalEncoder(BaseEstimator, TransformerMixin):
 
         X, _ = self.ordinal_encoding(
             X,
-            mapping=self.mapping,
+            mapping=self._found_mapping,
             cols=self.cols,
             impute_missing=self.impute_missing,
             handle_unknown=self.handle_unknown
